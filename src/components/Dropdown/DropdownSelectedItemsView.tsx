@@ -107,7 +107,13 @@ const DropdownSelectedItemsView = ({
 const DropdownContent = ({ onPress, style, label, ...rest }: any) => {
   return (
     <TouchableOpacity onPress={() => onPress()} {...rest}>
-      <Text style={style}>{label}</Text>
+      <Text  
+        numberOfLines={1}
+        ellipsizeMode="tail" 
+        style={style}
+      >
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 };
