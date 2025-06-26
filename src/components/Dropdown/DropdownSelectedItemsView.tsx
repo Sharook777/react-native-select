@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -7,9 +7,9 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-} from 'react-native';
-import { colors } from '../../styles/colors';
-import { inputStyles } from '../../styles/input';
+} from "react-native";
+import { colors } from "../../styles/colors";
+import { inputStyles } from "../../styles/input";
 
 const DropdownSelectedItemsView = ({
   placeholder,
@@ -44,7 +44,7 @@ const DropdownSelectedItemsView = ({
         },
         { ...inputStyles.input, ...dropdownStyle },
         error && //this must be last
-          error !== '' &&
+          error !== "" &&
           !pressed && {
             ...inputStyles.inputFocusErrorState,
             ...dropdownErrorStyle,
@@ -58,46 +58,50 @@ const DropdownSelectedItemsView = ({
         horizontal
         alwaysBounceHorizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ width: "100%" }}
       >
         <View
           style={styles.selectedItemsContainer}
           onStartShouldSetResponder={() => true}
         >
-          {isMultiple ? (
-            labelsOfSelectedItems?.map((label: string, i: Number) => (
-              <DropdownContent
-                onPress={() => openActions(label)}
-                key={`react-native-input-select-list-item-${Math.random()}-${i}`}
-                style={[
-                  styles.selectedItems,
-                  { backgroundColor: primaryColor },
-                  multipleSelectedItemStyle,
-                ]}
-                label={label}
-                disabled={disabled}
-              />
-            ))
-          ) : (
-            <DropdownContent
-              onPress={() => openActions(labelsOfSelectedItems)}
-              style={[styles.blackText, selectedItemStyle]}
-              label={labelsOfSelectedItems}
-              disabled={disabled}
-            />
-          )}
-          {selectedItem === '' && selectedItems?.length === 0 && (
+          {selectedItem === "" && selectedItems?.length === 0 ? (
             <DropdownContent
               onPress={() => openModal()}
               style={[styles.blackText, placeholderStyle]}
-              label={placeholder ?? 'Select an option'}
+              label={placeholder ?? "Select an option"}
               disabled={disabled}
             />
+          ) : (
+            <>
+              {isMultiple ? (
+                labelsOfSelectedItems?.map((label: string, i: Number) => (
+                  <DropdownContent
+                    onPress={() => openActions(label)}
+                    key={`react-native-input-select-list-item-${Math.random()}-${i}`}
+                    style={[
+                      styles.selectedItems,
+                      { backgroundColor: primaryColor },
+                      multipleSelectedItemStyle,
+                    ]}
+                    label={label}
+                    disabled={disabled}
+                  />
+                ))
+              ) : (
+                <DropdownContent
+                  onPress={() => openActions(labelsOfSelectedItems)}
+                  style={[styles.blackText, selectedItemStyle]}
+                  label={labelsOfSelectedItems}
+                  disabled={disabled}
+                />
+              )}
+            </>
           )}
         </View>
       </ScrollView>
       <View style={[styles.iconStyle, dropdownIconStyle]}>
         {dropdownIcon || (
-          <Image source={require('../../asset/arrow-down.png')} />
+          <Image source={require("../../asset/arrow-down.png")} />
         )}
       </View>
     </Pressable>
@@ -106,12 +110,12 @@ const DropdownSelectedItemsView = ({
 
 const DropdownContent = ({ onPress, style, label, ...rest }: any) => {
   return (
-    <TouchableOpacity onPress={() => onPress()} {...rest}>
-      <Text  
-        numberOfLines={1}
-        ellipsizeMode="tail" 
-        style={style}
-      >
+    <TouchableOpacity
+      onPress={() => onPress()}
+      {...rest}
+      style={{ width: "100%" }}
+    >
+      <Text numberOfLines={1} ellipsizeMode="tail" style={style}>
         {label}
       </Text>
     </TouchableOpacity>
@@ -119,11 +123,9 @@ const DropdownContent = ({ onPress, style, label, ...rest }: any) => {
 };
 
 const styles = StyleSheet.create({
-  iconStyle: { position: 'absolute', right: 25, top: 25 },
+  iconStyle: { position: "absolute", right: 25, top: 25 },
   selectedItemsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    alignItems: 'center',
+    width: "80%",
   },
   selectedItems: {
     color: colors.white,
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: colors.primary,
     marginRight: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   blackText: { color: colors.black },
 });
